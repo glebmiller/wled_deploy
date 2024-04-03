@@ -1,4 +1,4 @@
-name: WLED compile esp32c3 with battery mod
+name: WLED compile MM + battery
 
 on:
     workflow_dispatch:
@@ -30,9 +30,9 @@ jobs:
         cd `cat /tmp/WLEDtemp/wledfoldername`
         npm install
         echo '[env:custom_build]' >>platformio.ini
-        echo 'extends = env:seeed_esp32c3_4MB_S' >>platformio.ini
-        echo 'build_flags = ${env:seeed_esp32c3_4MB_S.build_flags} -D WLED_ENABLE_PIXART -D CLIENT_SSID="\"Miller'\''s House\"" -D CLIENT_PASS="\"13597566\"" -D USERMOD_BATTERY -D USERMOD_BATTERY_USE_LIPO' >> platformio.ini
-       
+        echo 'extends = env:esp32c3dev' >>platformio.ini
+        echo 'build_flags = ${env:esp32c3dev.build_flags} -D USERMOD_BATTERY' >>platformio.ini
+        
         pio run -e custom_build || pio run -e custom_build
     - name: Copy Files
       run: |
