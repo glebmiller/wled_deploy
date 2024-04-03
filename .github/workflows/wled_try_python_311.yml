@@ -1,4 +1,4 @@
-name: WLED compile
+name: WLED compile esp32c3 with battery mod
 
 on:
     workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.12
+        python-version: 3.9
 
     - name: Install PlatformIO
       run: |
@@ -31,7 +31,7 @@ jobs:
         npm install
         echo '[env:custom_build]' >>platformio.ini
         echo 'extends = env:seeed_esp32c3_4MB_S' >>platformio.ini
-        echo 'build_flags = ${env:seeed_esp32c3_4MB_S.build_flags} -D WLED_ENABLE_PIXART -D CLIENT_SSID="\"Miller'\''s House\"" -D CLIENT_PASS="\"13597566\"" -D USERMOD_BATTERY -D USERMOD_BATTERY_USE_LIPO -D USERMOD_BATTERY_MIN_VOLTAGE=3.2 -D USERMOD_BATTERY_MAX_VOLTAGE=4.2 -D USERMOD_BATTERY_AUTO_OFF_ENABLED true -D USERMOD_BATTERY_LOW_POWER_INDICATOR_ENABLED=true -D USERMOD_BATTERY_LOW_POWER_INDICATOR_PRESET=240' >> platformio.ini
+        echo 'build_flags = ${env:seeed_esp32c3_4MB_S.build_flags} -D WLED_ENABLE_PIXART -D USERMOD_BATTERY -D USERMOD_BATTERY_USE_LIPO -D USERMOD_BATTERY_MIN_VOLTAGE=3.2 -D USERMOD_BATTERY_MAX_VOLTAGE=4.2 -D USERMOD_BATTERY_AUTO_OFF_ENABLED true -D USERMOD_BATTERY_LOW_POWER_INDICATOR_ENABLED=true -D USERMOD_BATTERY_LOW_POWER_INDICATOR_PRESET=240' >> platformio.ini
        
         pio run -e custom_build || pio run -e custom_build
     - name: Copy Files
